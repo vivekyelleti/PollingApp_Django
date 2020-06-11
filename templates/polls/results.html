@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="text-center mb-3">{{question.question_text}}</h1>
+
+{% if error_message %}
+<p class="alert alert-message">
+    <strong> ERROR : {{error_message}}</strong>
+</p>
+{% endif %}
+
+<ul class="list-group mb-5">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+   
+    <li class="list-group-item">
+        {{choice.choice_text}} <span class="badge badge-succes float-right">
+            {{ choice.votes }} 
+        </span>
+    </li>
+    {% endfor %}
+
+
+</ul>
+<a class="btn btn-secondary btn-sm mb-3" href="{% url 'polls:index' %}">Back to polls</a>
+
+    
+{% endblock %}
